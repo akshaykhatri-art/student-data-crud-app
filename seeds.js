@@ -1,14 +1,14 @@
 const mongoose = require('mongoose');
 const Student = require('./models/student');
 
-mongoose.connect('mongodb://localhost:27017/collegeData', { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(() => {
-        console.log("MONGO CONNECTION OPEN!!")
-    })
-    .catch(err => {
-        console.log("MONGO CONNECTION ERROR!!")
-        console.log(err)
-    })
+// mongoose.connect('mongodb://localhost:27017/college');
+mongoose.connect('mongodb://127.0.0.1:27017/college');
+
+const db = mongoose.connection;
+db.on("error", console.error.bind(console, "connection error:"));
+db.once("open", () => {
+    console.log("Database connected");
+});
 
 // const s = new Student({
 //     name: 'Hiren',
