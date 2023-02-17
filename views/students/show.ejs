@@ -4,15 +4,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Students Data</title>
+    <title>Student Detail Page</title>
 </head>
 <body>
-    <h1>All Students</h1>
-<ul>
-    <% for(let student of students) { %>
-    <li><a href="/students/<%= student._id %>"><%= student.name %></a></li>
-    <% } %>
-</ul>
-
+    <h1><%= student.name %></h1>
+    <ul>
+        <li>age: <%= student.age %></li>
+        <li>gender: <%= student.gender %></li>
+    </ul>
+    <a href="/students">All Students List</a>
 </body>
 </html>

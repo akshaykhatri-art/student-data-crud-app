@@ -7,10 +7,11 @@ const Student = require('./models/student');
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+app.use(express.urlencoded({extended: true}));
 
-app.get('/register', (req, res) => {
-    res.send('Register!!')
-})
+// app.get('/register', (req, res) => {
+//     res.send('Register!!')
+// })
 
 // mongoose.connect('mongodb://localhost:27017/college');
 mongoose.connect('mongodb://127.0.0.1:27017/college');
@@ -25,6 +26,22 @@ db.once("open", () => {
 app.get('/students', async (req, res) => {
     const students = await Student.find({})
     res.render('students/index', {students})
+})
+
+app.get('/students/register', async (req, res) => {
+    res.render('students/register')
+})
+
+app.post('/students', async(req, res) => {
+    const newStudent = new Student(req.body)
+    await newStudent.save()
+    res.redirect(`/students/${newStudent._id}`)
+})
+
+app.get('/students/:id', async (req, res) => {
+    const {id} = req.params;
+    const student = await Student.findById(id)
+    res.render('students/show', {student})
 })
 
 app.listen(3000, () => {
