@@ -59,6 +59,12 @@ app.put('/students/:id', async(req, res) => {
     res.redirect(`/students/${student._id}`)
 })
 
+app.delete('/students/:id', async(req, res) => {
+    const {id} = req.params;
+    const removedStudent = await Student.findByIdAndDelete(id)
+    res.redirect('/students')
+})
+
 app.listen(3000, () => {
     console.log("APP IS LISTENING ON PORT 3000!")
 })
